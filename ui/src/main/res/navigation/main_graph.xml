@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/ageFragment">
+
+    <fragment
+        android:id="@+id/ageFragment"
+        android:name="com.juanvilla.freshpic.ui.screens.age.AgeFragment"
+        tools:layout="@layout/fragment_age">
+
+        <action
+            android:id="@+id/action_ageFragment_to_homeActivity"
+            app:destination="@id/homeActivity"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+    <activity
+        android:id="@+id/homeActivity"
+        android:name="com.juanvilla.freshpic.ui.screens.home.HomeActivity"
+        tools:layout="@layout/activity_home">
+
+
+    </activity>
+
+</navigation>
