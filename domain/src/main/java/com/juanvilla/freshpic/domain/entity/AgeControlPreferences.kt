@@ -4,9 +4,7 @@ data class AgeControlPreferences(
     val isAdult: Boolean?,
     val selectedRating: String?
 ) {
-
     fun arePreferencesValid(): Boolean {
-        return isAdult == false || selectedRating == null
+        return isAdult == true && selectedRating != null
     }
-
 }

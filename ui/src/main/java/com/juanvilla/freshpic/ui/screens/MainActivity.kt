@@ -3,10 +3,12 @@ package com.juanvilla.freshpic.ui.screens
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import com.juanvilla.freshpic.domain.entity.AgeControlPreferences
 import com.juanvilla.freshpic.ui.R
+import com.juanvilla.freshpic.ui.screens.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -28,21 +30,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onAgePreferencesUpdated(ageControlPreferences: AgeControlPreferences) =
-        setStartDestinationBasedOnPrefs(ageControlPreferences.arePreferencesValid())
+        setStartDestinationBasedOnPrefs(ageControlPreferences)
 
-    private fun setStartDestinationBasedOnPrefs(validPreferences: Boolean) {
+    private fun setStartDestinationBasedOnPrefs(ageControlPreferences: AgeControlPreferences) {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         val navGraph = navHostFragment.navController.navInflater.inflate(R.navigation.main_graph)
 
         navGraph.setStartDestination(
-            if (validPreferences) {
-                R.id.ageFragment
-            } else {
+            if (ageControlPreferences.arePreferencesValid()) {
                 R.id.homeActivity
+            } else {
+                R.id.ageFragment
             }
         )
 
-        navHostFragment.navController.graph = navGraph
+        navHostFragment.navController.setGraph(
+            navGraph,
+            if (ageControlPreferences.arePreferencesValid()) {
+                bundleOf(
+                    HomeActivity.PARAM_SELECTED_RATING to ageControlPreferences.selectedRating
+                )
+            } else {
+                bundleOf()
+            }
+        )
     }
 }

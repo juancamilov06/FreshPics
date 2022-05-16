@@ -1,0 +1,66 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.FreshPic" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/colorBaseBackground</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="colorControlHighlight">@color/colorPrimaryVariant</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Theme.FreshPic.NoToolbar" parent="Theme.FreshPic">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.FreshPic.ToolbarTheme">
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:textColorSecondary">@color/colorPrimary</item>
+    </style>
+
+    <style name="Theme.FreshPic.Toolbar">
+        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
+        <item name="android:background">@color/colorBaseBackground</item>
+        <item name="android:theme">@style/Theme.FreshPic.ToolbarTheme</item>
+    </style>
+
+    <style name="Theme.FreshPic.Title">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/ubuntu_bold</item>
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="Theme.FreshPic.Subtitle">
+        <item name="android:fontFamily">@font/ubuntu_regular</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="Theme.FreshPic.BottomNavigationView" parent="Widget.Design.BottomNavigationView">
+        <item name="fontFamily">@font/ubuntu_regular</item>
+        <item name="android:background">@color/colorBaseBackground</item>
+        <item name="itemTextColor">@drawable/bottomnavview_selector</item>
+        <item name="itemIconTint">@drawable/bottomnavview_selector</item>
+    </style>
+
+    <style name="Theme.FreshPic.Input">
+        <item name="android:fontFamily">@font/ubuntu_regular</item>
+        <item name="android:background">@drawable/flat_input</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="Theme.FreshPic.PrimaryButton">
+        <item name="android:fontFamily">@font/ubuntu_regular</item>
+        <item name="backgroundTint">@color/colorPrimary</item>
+    </style>
+
+    <style name="Theme.FreshPic.SecondaryButton">
+        <item name="android:fontFamily">@font/ubuntu_regular</item>
+        <item name="backgroundTint">@color/colorSecondary</item>
+    </style>
+
+    <style name="Theme.FreshPic.FavoriteButton">
+        <item name="backgroundTint">@color/colorBaseBackground</item>
+        <item name="iconTint">@color/colorPrimary</item>
+    </style>
+</resources>

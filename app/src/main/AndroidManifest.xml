@@ -28,6 +28,7 @@
         </activity>
 
         <activity
+            android:theme="@style/Theme.FreshPic.NoToolbar"
             android:name=".ui.screens.home.HomeActivity" />
 
     </application>

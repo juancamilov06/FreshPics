@@ -14,58 +14,104 @@
             android:scaleType="centerCrop"
             android:src="@drawable/age_bg" />
 
-        <com.google.android.material.card.MaterialCardView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="8dp"
-            android:layout_marginHorizontal="32dp"
-            android:layout_marginBottom="32dp"
-            android:layout_height="200dp"
-            android:layout_gravity="bottom"
-            android:background="#fff">
+            android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
+            <FrameLayout
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/legalAgeTitleTv"
+                <ImageView
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_title_logo"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp" />
+
+                <TextView
+                    android:textSize="46sp"
+                    android:textColor="@color/white"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/ubuntu_bold"
+                    android:text="FreshPIC"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </FrameLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center_horizontal"
+                android:layout_marginBottom="32dp"
+                android:background="#fff"
+                android:paddingHorizontal="32dp"
+                android:paddingVertical="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="8dp"
+                app:contentPaddingBottom="16dp"
+                app:contentPaddingLeft="32dp"
+                app:contentPaddingRight="32dp"
+                app:contentPaddingTop="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Are you 18+ years old?"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_gravity="center">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/notLegalBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:text="NO"
-                    app:layout_constraintEnd_toStartOf="@+id/buttonsGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/legalAgeTitleTv" />
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/legalAgeTitleTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Are you 18+ years old?"
+                        android:textSize="18sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/legalBtn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="YES"
-                    app:layout_constraintStart_toEndOf="@id/buttonsGuideline"
-                    app:layout_constraintTop_toBottomOf="@id/legalAgeTitleTv" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/notLegalBtn"
+                        style="@style/Theme.FreshPic.SecondaryButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="NO"
+                        app:layout_constraintEnd_toStartOf="@+id/buttonsGuideline"
+                        app:layout_constraintStart_toStartOf="@+id/legalAgeTitleTv"
+                        app:layout_constraintTop_toBottomOf="@id/legalAgeTitleTv" />
 
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/buttonsGuideline"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_percent="0.5" />
+                    <com.google.android.material.button.MaterialButton
+                        style="@style/Theme.FreshPic.PrimaryButton"
+                        android:id="@+id/legalBtn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:text="YES"
+                        app:layout_constraintEnd_toEndOf="@+id/legalAgeTitleTv"
+                        app:layout_constraintStart_toEndOf="@id/buttonsGuideline"
+                        app:layout_constraintTop_toBottomOf="@id/legalAgeTitleTv" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/buttonsGuideline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_percent="0.5" />
 
-        </com.google.android.material.card.MaterialCardView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>
 

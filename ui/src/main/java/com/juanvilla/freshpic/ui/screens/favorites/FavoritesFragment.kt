@@ -34,7 +34,7 @@ class FavoritesFragment : Fragment() {
             container,
             false
         )
-        adapter = GifAdapter(requireContext()) { gif ->
+        adapter = GifAdapter(requireContext(), null) { gif ->
             sharedFavoritesViewModel.deleteGifFromFavorites(gif)
         }
         return binding.root
@@ -50,7 +50,7 @@ class FavoritesFragment : Fragment() {
                         favoritesRecyclerView.isVisible = true
                         favoritesProgressBar.isVisible = false
                     }
-                    adapter.setItems(it.data)
+                    adapter.setFavoriteItems(it.data)
                 }
             }
         }

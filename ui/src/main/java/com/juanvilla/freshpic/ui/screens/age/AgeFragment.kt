@@ -5,11 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.juanvilla.freshpic.ui.R
 import com.juanvilla.freshpic.ui.databinding.FragmentAgeBinding
+import com.juanvilla.freshpic.ui.screens.home.HomeActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,17 +39,20 @@ class AgeFragment : Fragment() {
 
         ageViewModel.preferencesSetSource.observe(
             viewLifecycleOwner
-        ) {
-            it?.let {
-                navigateToHome()
+        ) { selectedRating ->
+            selectedRating?.let {
+                navigateToHome(it)
             } ?: Log.d(TAG, "Error setting prefs, restart app")
         }
     }
 
-    private fun navigateToHome() {
+    private fun navigateToHome(selectedRating: String) {
         findNavController()
             .navigate(
-                R.id.action_ageFragment_to_homeActivity
+                R.id.action_ageFragment_to_homeActivity,
+                bundleOf(
+                    HomeActivity.PARAM_SELECTED_RATING to selectedRating
+                )
             )
     }
 

@@ -20,8 +20,8 @@ class AgeViewModel @Inject constructor(
     @Named("IoDispatcher") private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
-    private val _preferencesSetSource = MediatorLiveData<Unit?>()
-    val preferencesSetSource: LiveData<Unit?> = _preferencesSetSource
+    private val _preferencesSetSource = MediatorLiveData<String?>()
+    val preferencesSetSource: LiveData<String?> = _preferencesSetSource
 
     fun setAgePrefs(adult: Boolean) {
         val ageControlPreferences = AgeControlPreferences(
@@ -39,7 +39,9 @@ class AgeViewModel @Inject constructor(
             )
             when (result) {
                 is ResultType.Success -> {
-                    _preferencesSetSource.postValue(Unit)
+                    _preferencesSetSource.postValue(
+                        ageControlPreferences.selectedRating
+                    )
                 }
                 is ResultType.Error -> {
                     _preferencesSetSource.postValue(null)

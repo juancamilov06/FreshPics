@@ -5,16 +5,23 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.juanvilla.freshpic.domain.util.Constants
+import com.juanvilla.freshpic.ui.R
 import com.juanvilla.freshpic.ui.databinding.FragmentSearchBinding
+import com.juanvilla.freshpic.ui.screens.home.HomeActivity
 import com.juanvilla.freshpic.ui.screens.shared.GifAdapter
 import com.juanvilla.freshpic.ui.screens.shared.SharedFavoriteViewState
 import com.juanvilla.freshpic.ui.screens.shared.SharedFavoritesViewModel
+import com.juanvilla.freshpic.ui.screens.trending.TrendingFragment
 import com.juanvilla.freshpic.ui.utils.onTextChangedListenerDebounced
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,6 +33,8 @@ class SearchFragment : Fragment() {
 
     private lateinit var adapter: GifAdapter
     private lateinit var binding: FragmentSearchBinding
+    private lateinit var selectedRating: String
+    private lateinit var toolbarSearchEditText: EditText
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,7 +46,18 @@ class SearchFragment : Fragment() {
             container,
             false
         )
-        adapter = GifAdapter(requireContext()) { gif ->
+        toolbarSearchEditText = (activity as AppCompatActivity).findViewById(R.id.searchEditText)
+        selectedRating =
+            arguments?.getString(HomeActivity.PARAM_SELECTED_RATING) ?: Constants.PG13_RATING
+        adapter = GifAdapter(
+            requireContext(),
+            {
+                searchViewModel.findGifsByKeyword(
+                    toolbarSearchEditText.text.toString(),
+                    selectedRating
+                )
+            }
+        ) { gif ->
             if (gif.isFavorite) {
                 sharedFavoritesViewModel.deleteGifFromFavorites(gif)
             } else {
@@ -59,33 +79,33 @@ class SearchFragment : Fragment() {
         }
         searchViewModel.searchViewStateSource.observe(viewLifecycleOwner) {
             when (it) {
-                is SearchViewState.Loading -> {
-                    binding.apply {
-                        searchProgressBar.isVisible = true
-                        searchRecyclerView.isVisible = false
-                        hintTextView.isVisible = false
-                    }
+                is SearchViewState.LoadingMore -> binding.apply {
+                    loadingMoreSearchProgressBar.isVisible = true
                 }
-                is SearchViewState.Empty -> {
-                    binding.apply {
-                        searchProgressBar.isVisible = false
-                        searchRecyclerView.isVisible = false
-                        hintTextView.isVisible = true
-                    }
+                is SearchViewState.Loading -> binding.apply {
+                    searchProgressBar.isVisible = true
+                    searchRecyclerView.isVisible = false
+                    hintTextView.isVisible = false
                 }
-                is SearchViewState.Success -> {
-                    binding.apply {
-                        searchProgressBar.isVisible = false
-                        searchRecyclerView.isVisible = true
-                        hintTextView.isVisible = false
 
-                        searchRecyclerView.adapter = adapter
-                        searchRecyclerView.layoutManager = LinearLayoutManager(
-                            requireContext(),
-                            LinearLayoutManager.VERTICAL,
-                            false
-                        )
-                        adapter.setItems(it.data.gifs)
+                is SearchViewState.Empty -> binding.apply {
+                    searchProgressBar.isVisible = false
+                    searchRecyclerView.isVisible = false
+                    hintTextView.isVisible = true
+                    loadingMoreSearchProgressBar.isVisible = false
+                }
+
+                is SearchViewState.Success -> binding.apply {
+                    searchProgressBar.isVisible = false
+                    searchRecyclerView.isVisible = true
+                    hintTextView.isVisible = false
+                    loadingMoreSearchProgressBar.isVisible = false
+
+                    adapter.apply {
+                        if (searchViewModel.currentOffset == 0) {
+                            clear()
+                        }
+                        setItems(it.data.gifs)
                     }
                 }
                 is SearchViewState.Error -> Log.d(TAG, it.error.message!!)
@@ -94,16 +114,27 @@ class SearchFragment : Fragment() {
     }
 
     private fun setViews() {
-        binding.searchInput.onTextChangedListenerDebounced({
-            searchViewModel.findGifsByKeyword(it)
+        binding.searchRecyclerView.adapter = adapter
+        binding.searchRecyclerView.layoutManager = LinearLayoutManager(
+            requireContext(),
+            LinearLayoutManager.VERTICAL,
+            false
+        )
+        toolbarSearchEditText.onTextChangedListenerDebounced({
+            searchViewModel.findGifsByKeyword(it, selectedRating)
         }, lifecycleScope)
     }
 
     companion object {
         const val TAG = "SearchFragment"
-
-        fun getInstance(): SearchFragment {
-            return SearchFragment()
+        fun getInstance(
+            selectedRating: String
+        ): SearchFragment {
+            return SearchFragment().apply {
+                arguments = bundleOf(
+                    HomeActivity.PARAM_SELECTED_RATING to selectedRating
+                )
+            }
         }
     }
 }

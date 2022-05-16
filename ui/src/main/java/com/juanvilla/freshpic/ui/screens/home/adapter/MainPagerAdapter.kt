@@ -10,14 +10,15 @@ import java.lang.IllegalStateException
 
 class MainPagerAdapter(
     activity: AppCompatActivity,
-    private val count: Int
+    private val count: Int,
+    private val selectedRating: String
 ) : FragmentStateAdapter(activity) {
     override fun getItemCount(): Int = count
 
     override fun createFragment(position: Int): Fragment {
         return when(position) {
-            0 -> TrendingFragment.getInstance()
-            1 -> SearchFragment.getInstance()
+            0 -> TrendingFragment.getInstance(selectedRating)
+            1 -> SearchFragment.getInstance(selectedRating)
             2 -> FavoritesFragment.getInstance()
             else -> throw IllegalStateException("Can't render fragment position")
         }

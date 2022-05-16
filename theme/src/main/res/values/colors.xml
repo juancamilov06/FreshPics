@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFFF1F62</color>
+    <color name="colorPrimaryVariant">#FFFF0A54</color>
+    <color name="colorSecondary">#FFBC00DD</color>
+    <color name="colorBaseBackground">#FFF9FB</color>
+    <color name="colorLayoutBackground">#FFFAFD</color>
+    <color name="colorUnset">#FFFFC2D4</color>
+
+    <color name="colorRandomPlaceholderOne">#FFA100F2</color>
+    <color name="colorRandomPlaceholderTwo">#BC00DD</color>
+    <color name="colorRandomPlaceholderThree">#DB00B6</color>
+    <color name="colorRandomPlaceholderFour">#F20089</color>
+</resources>

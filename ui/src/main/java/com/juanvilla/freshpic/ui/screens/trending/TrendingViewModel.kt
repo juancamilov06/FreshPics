@@ -27,13 +27,17 @@ class TrendingViewModel @Inject constructor(
 
     private var currentPage = 0
 
-    fun getTrendingGifs() {
+    fun getTrendingGifs(rating: String) {
         viewModelScope.launch(ioDispatcher) {
-            _trendingViewStateSource.postValue(TrendingViewState.Loading)
+            if (currentPage == 0) {
+                _trendingViewStateSource.postValue(TrendingViewState.Loading)
+            } else {
+                _trendingViewStateSource.postValue(TrendingViewState.LoadingMore)
+            }
             val result = trendingUseCase.getTrendingGifs(
-                currentPage,
-                Constants.PG13_RATING,
-                26
+                offset = currentPage,
+                rating = rating,
+                limit = 26
             )
             when (result) {
                 is ResultType.Success -> _trendingViewStateSource.postValue(
@@ -43,7 +47,7 @@ class TrendingViewModel @Inject constructor(
                     TrendingViewState.Error(result.error)
                 )
             }
-            currentPage++
+            currentPage += 26
         }
     }
 
