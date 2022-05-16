@@ -23,6 +23,7 @@ data class ApiGif(
     @SerializedName("trending_datetime")
     val trendingDateTime: String?,
     val title: String,
+    val isFavorite: Boolean = false,
     val user: ApiUser?,
     val images: ApiImages?
 )

@@ -22,14 +22,14 @@ class FavoritesLocalDataSourceImpl @Inject constructor(
     }
 
     override suspend fun delete(gif: DbGif): ResultType<Unit> {
-        val result = favoritesDao.delete(gif)
+        val result = favoritesDao.delete(gif.id)
         return when {
             result > 0 -> ResultType.Success(Unit)
             else -> ResultType.Error(BaseException("Can't save"))
         }
     }
 
-    override suspend fun findAll(): LiveData<ResultType<List<DbGif>>> = Transformations.map(
+    override fun findAll(): LiveData<ResultType<List<DbGif>>> = Transformations.map(
         favoritesDao.findAll()
     ) {
         ResultType.Success(it)

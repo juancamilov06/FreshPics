@@ -44,6 +44,7 @@ object ApiGifMapper : ApiMapper<Gif, ApiGif>() {
             height = api.images!!.original.height,
             width = api.images.original.width,
             url = api.images.original.url
-        )
+        ),
+        isFavorite = api.isFavorite
     )
 }

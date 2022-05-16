@@ -1,17 +1,19 @@
-package com.juanvilla.freshpic.ui.screens
+package com.juanvilla.freshpic.ui.screens.shared
 
 import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.juanvilla.freshpic.domain.entity.Gif
+import com.juanvilla.freshpic.ui.R
 import com.juanvilla.freshpic.ui.databinding.ItemGifBinding
 
 class GifAdapter(
     private val context: Context,
-    private val onFavoriteClicked: (Gif, Int) -> Unit
+    private val onFavoriteClicked: (Gif) -> Unit
 ) : RecyclerView.Adapter<GifAdapter.TrendingViewHolder>() {
 
     private val items = mutableListOf<Gif>()
@@ -25,13 +27,18 @@ class GifAdapter(
         }
     }
 
-    fun updateFavorite(position: Int) {
-        val item = items[position]
-        val itemToUpdate = item.copy(
-            isFavorite = !item.isFavorite
-        )
-        items[position] = itemToUpdate
-        notifyItemChanged(position)
+    fun updateFavorite(id: String) {
+        val itemPosition = items.indexOfFirst {
+            it.id == id
+        }
+        if (itemPosition > -1) {
+            val item = items[itemPosition]
+            val itemToUpdate = item.copy(
+                isFavorite = !item.isFavorite
+            )
+            items[itemPosition] = itemToUpdate
+            notifyItemChanged(itemPosition)
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrendingViewHolder {
@@ -50,14 +57,23 @@ class GifAdapter(
         private val binding: ItemGifBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun setGif(gif: Gif, position: Int) {
-            binding.setFavoriteButton.setOnClickListener {
-                onFavoriteClicked(gif, position)
+            binding.apply {
+                setFavoriteButton.setOnClickListener {
+                    onFavoriteClicked(gif)
+                }
+
+                setFavoriteButton.icon = if (gif.isFavorite) {
+                    AppCompatResources.getDrawable(context, R.drawable.ic_favorite_fill)
+                } else {
+                    AppCompatResources.getDrawable(context, R.drawable.ic_favorite)
+                }
+
+                Glide
+                    .with(root)
+                    .asGif()
+                    .load(gif.image.url)
+                    .into(gifImageView)
             }
-            Glide
-                .with(binding.root)
-                .asGif()
-                .load(gif.image.url)
-                .into(binding.gifImageView)
         }
     }
 }

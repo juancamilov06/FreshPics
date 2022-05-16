@@ -19,9 +19,12 @@ interface FavoritesDao {
     @Query("SELECT * FROM gif")
     fun findAll(): LiveData<List<DbGif>>
 
-    @Delete
-    fun delete(gif: DbGif): Int
+    @Query("SELECT EXISTS(SELECT * FROM gif WHERE id = :id)")
+    suspend fun isFavorite(id: String): Boolean
+
+    @Query("DELETE FROM gif WHERE id = :id")
+    suspend fun delete(id: String): Int
 
     @Insert
-    fun save(gif: DbGif): Long
+    suspend fun save(gif: DbGif): Long
 }

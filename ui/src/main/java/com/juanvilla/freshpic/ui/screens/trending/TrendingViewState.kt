@@ -9,7 +9,4 @@ sealed class TrendingViewState {
     data class Error(
         val baseException: BaseException
     ): TrendingViewState()
-    object SavingGif : TrendingViewState()
-    data class GifSaved(val position: Int) : TrendingViewState()
-    object GifSaveError : TrendingViewState()
 }

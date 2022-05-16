@@ -24,7 +24,7 @@ class FavoriteRepositoryImpl @Inject constructor(
         dbGifMapper.mapDomainToDb(gif)
     )
 
-    override suspend fun findAll(): LiveData<ResultType<List<Gif>>> = Transformations.switchMap(
+    override fun findAll(): LiveData<ResultType<List<Gif>>> = Transformations.switchMap(
         favoritesLocalDataSource.findAll()
     ) {
         when (it) {

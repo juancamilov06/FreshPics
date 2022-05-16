@@ -9,5 +9,5 @@ import com.juanvilla.freshpic.domain.util.ResultType
 interface FavoritesLocalDataSource {
     suspend fun save(gif: DbGif): ResultType<Unit>
     suspend fun delete(gif: DbGif): ResultType<Unit>
-    suspend fun findAll(): LiveData<ResultType<List<DbGif>>>
+    fun findAll(): LiveData<ResultType<List<DbGif>>>
 }

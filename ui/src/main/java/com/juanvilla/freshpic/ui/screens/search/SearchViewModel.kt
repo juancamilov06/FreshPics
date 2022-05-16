@@ -9,6 +9,7 @@ import com.juanvilla.freshpic.domain.usecase.favorite.FavoriteUseCase
 import com.juanvilla.freshpic.domain.usecase.search.SearchUseCase
 import com.juanvilla.freshpic.domain.util.Constants
 import com.juanvilla.freshpic.domain.util.ResultType
+import com.juanvilla.freshpic.ui.screens.trending.TrendingViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import javax.inject.Named
@@ -28,20 +29,6 @@ class SearchViewModel @Inject constructor(
     val searchViewStateSource: LiveData<SearchViewState> = _searchViewStateSource
 
     private var currentPage = 0
-
-    fun saveGifInFavorites(gif: Gif) {
-        viewModelScope.launch(ioDispatcher) {
-            val result = favoriteUseCase.saveGifToFavorites(gif)
-            when (result) {
-                is ResultType.Success -> {
-
-                }
-                is ResultType.Error -> {
-
-                }
-            }
-        }
-    }
 
     fun findGifsByKeyword(keyword: String) {
         if (keyword.isBlank()) {

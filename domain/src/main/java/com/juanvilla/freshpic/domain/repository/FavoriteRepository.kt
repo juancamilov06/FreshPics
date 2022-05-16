@@ -8,5 +8,5 @@ import com.juanvilla.freshpic.domain.util.ResultType
 interface FavoriteRepository {
     suspend fun save(gif: Gif): ResultType<Unit>
     suspend fun delete(gif: Gif): ResultType<Unit>
-    suspend fun findAll(): LiveData<ResultType<List<Gif>>>
+    fun findAll(): LiveData<ResultType<List<Gif>>>
 }

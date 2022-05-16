@@ -27,20 +27,6 @@ class TrendingViewModel @Inject constructor(
 
     private var currentPage = 0
 
-    fun saveGifInFavorites(gif: Gif) {
-        viewModelScope.launch(ioDispatcher) {
-            val result = favoriteUseCase.saveGifToFavorites(gif)
-            when (result) {
-                is ResultType.Success -> {
-
-                }
-                is ResultType.Error -> {
-
-                }
-            }
-        }
-    }
-
     fun getTrendingGifs() {
         viewModelScope.launch(ioDispatcher) {
             _trendingViewStateSource.postValue(TrendingViewState.Loading)

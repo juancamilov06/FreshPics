@@ -6,14 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.juanvilla.freshpic.ui.databinding.FragmentSearchBinding
-import com.juanvilla.freshpic.ui.screens.GifAdapter
+import com.juanvilla.freshpic.ui.screens.shared.GifAdapter
+import com.juanvilla.freshpic.ui.screens.shared.SharedFavoriteViewState
+import com.juanvilla.freshpic.ui.screens.shared.SharedFavoritesViewModel
 import com.juanvilla.freshpic.ui.utils.onTextChangedListenerDebounced
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,6 +22,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class SearchFragment : Fragment() {
 
     private val searchViewModel: SearchViewModel by viewModels()
+    private val sharedFavoritesViewModel: SharedFavoritesViewModel by activityViewModels()
+
     private lateinit var adapter: GifAdapter
     private lateinit var binding: FragmentSearchBinding
 
@@ -34,8 +37,12 @@ class SearchFragment : Fragment() {
             container,
             false
         )
-        adapter = GifAdapter(requireContext()) {
-            Log.d(TAG, it.toString())
+        adapter = GifAdapter(requireContext()) { gif ->
+            if (gif.isFavorite) {
+                sharedFavoritesViewModel.deleteGifFromFavorites(gif)
+            } else {
+                sharedFavoritesViewModel.saveGifInFavorites(gif)
+            }
         }
         return binding.root
     }
@@ -43,7 +50,13 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setViews()
-
+        sharedFavoritesViewModel.gifFavoriteStatusSource.observe(viewLifecycleOwner) {
+            when (it) {
+                is SharedFavoriteViewState.GifFavoriteStatusChanged -> {
+                    adapter.updateFavorite(it.gifId)
+                }
+            }
+        }
         searchViewModel.searchViewStateSource.observe(viewLifecycleOwner) {
             when (it) {
                 is SearchViewState.Loading -> {

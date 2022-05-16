@@ -7,5 +7,5 @@ import com.juanvilla.freshpic.domain.util.ResultType
 interface FavoriteUseCase {
     suspend fun saveGifToFavorites(gif: Gif): ResultType<Unit>
     suspend fun deleteGifFromFavorites(gif: Gif): ResultType<Unit>
-    suspend fun getFavoriteGifs(): LiveData<ResultType<List<Gif>>>
+    fun getFavoriteGifs(): LiveData<ResultType<List<Gif>>>
 }
