@@ -34,7 +34,9 @@ class SearchFragment : Fragment() {
             container,
             false
         )
-        adapter = GifAdapter(requireContext())
+        adapter = GifAdapter(requireContext()) {
+            Log.d(TAG, it.toString())
+        }
         return binding.root
     }
 

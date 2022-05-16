@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.juanvilla.freshpic.domain.entity.Gif
+import com.juanvilla.freshpic.domain.usecase.favorite.FavoriteUseCase
 import com.juanvilla.freshpic.domain.usecase.trending.TrendingUseCase
 import com.juanvilla.freshpic.domain.util.Constants
 import com.juanvilla.freshpic.domain.util.ResultType
@@ -16,6 +18,7 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class TrendingViewModel @Inject constructor(
     private val trendingUseCase: TrendingUseCase,
+    private val favoriteUseCase: FavoriteUseCase,
     @Named("IoDispatcher") private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
@@ -23,6 +26,20 @@ class TrendingViewModel @Inject constructor(
     val trendingViewStateSource: LiveData<TrendingViewState> = _trendingViewStateSource
 
     private var currentPage = 0
+
+    fun saveGifInFavorites(gif: Gif) {
+        viewModelScope.launch(ioDispatcher) {
+            val result = favoriteUseCase.saveGifToFavorites(gif)
+            when (result) {
+                is ResultType.Success -> {
+
+                }
+                is ResultType.Error -> {
+
+                }
+            }
+        }
+    }
 
     fun getTrendingGifs() {
         viewModelScope.launch(ioDispatcher) {

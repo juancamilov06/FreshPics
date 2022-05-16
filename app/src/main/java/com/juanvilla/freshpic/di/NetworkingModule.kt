@@ -1,5 +1,6 @@
 package com.juanvilla.freshpic.di
 
+import com.facebook.stetho.okhttp3.StethoInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.juanvilla.freshpic.data.api.GiphyAPI
@@ -28,6 +29,7 @@ class NetworkingModule {
     fun provideHttpClient(): OkHttpClient = OkHttpClient()
         .newBuilder()
         .addInterceptor(ApiKeyInterceptor())
+        .addInterceptor(StethoInterceptor())
         .build()
 
     @Provides

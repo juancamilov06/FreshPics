@@ -1,6 +1,7 @@
 package com.juanvilla.freshpic.ui.screens.trending
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,7 +30,9 @@ class TrendingFragment : Fragment() {
             container,
             false
         )
-        adapter = GifAdapter(requireContext())
+        adapter = GifAdapter(requireContext()) {
+            trendingViewModel.saveGifInFavorites(it)
+        }
         return binding.root
     }
 
@@ -59,6 +62,7 @@ class TrendingFragment : Fragment() {
     }
 
     companion object {
+        const val TAG = "TrendingFragment"
         fun getInstance(): TrendingFragment {
             return TrendingFragment()
         }

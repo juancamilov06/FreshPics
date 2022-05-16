@@ -17,3 +17,11 @@ suspend fun <T> safeNetworkCall(
 } catch (error: Throwable) {
     ResultType.Error(BaseException(""))
 }
+
+suspend fun <T> safeDbQuery(
+    call: suspend () -> T
+): ResultType<T> = try {
+    ResultType.Success(call())
+} catch (error: Throwable) {
+    ResultType.Error(BaseException("Error doing query"))
+}

@@ -6,7 +6,7 @@ import com.juanvilla.freshpic.domain.entity.GifWrapper
 import com.juanvilla.freshpic.domain.util.ResultType
 
 interface FavoriteRepository {
-    suspend fun save(gif: Gif): ResultType<Long>
+    suspend fun save(gif: Gif): ResultType<Unit>
     suspend fun delete(gif: Gif): ResultType<Unit>
-    suspend fun findAll(): LiveData<ResultType<Gif>>
+    suspend fun findAll(): LiveData<ResultType<List<Gif>>>
 }
