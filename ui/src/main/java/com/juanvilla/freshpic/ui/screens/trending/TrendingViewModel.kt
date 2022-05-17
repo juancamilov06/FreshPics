@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.juanvilla.freshpic.domain.entity.Gif
 import com.juanvilla.freshpic.domain.usecase.favorite.FavoriteUseCase
 import com.juanvilla.freshpic.domain.usecase.trending.TrendingUseCase
 import com.juanvilla.freshpic.domain.util.ResultType
@@ -24,6 +25,17 @@ class TrendingViewModel @Inject constructor(
     val trendingViewStateSource: LiveData<TrendingViewState> = _trendingViewStateSource
 
     private var currentPage = 0
+    private val items: MutableList<Gif> = mutableListOf()
+
+    fun updateFavorite(id: String) {
+        val indexToUpdate = items.indexOfFirst {
+            id == it.id
+        }
+        val itemToUpdate = items[indexToUpdate]
+        items[indexToUpdate] = itemToUpdate.copy(
+            isFavorite = !itemToUpdate.isFavorite
+        )
+    }
 
     fun getTrendingGifs(rating: String) {
         viewModelScope.launch(ioDispatcher) {
@@ -39,8 +51,9 @@ class TrendingViewModel @Inject constructor(
             )
             when (result) {
                 is ResultType.Success -> {
+                    items.addAll(result.data.gifs)
                     _trendingViewStateSource.postValue(
-                        TrendingViewState.Success(result.data)
+                        TrendingViewState.Success(items)
                     )
                     currentPage += 26
                 }

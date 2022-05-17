@@ -19,44 +19,38 @@
             android:layout_height="match_parent">
 
             <FrameLayout
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_title_logo"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp" />
+                    android:src="@drawable/ic_title_logo" />
 
                 <TextView
-                    android:textSize="46sp"
-                    android:textColor="@color/white"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/ubuntu_bold"
-                    android:text="FreshPIC"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/bangers_regular"
+                    android:text="FreshPIC"
+                    android:textColor="@color/white"
+                    android:textSize="68sp" />
 
             </FrameLayout>
 
             <com.google.android.material.card.MaterialCardView
+                style="@style/Theme.FreshPic.CardView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center_horizontal"
                 android:layout_marginBottom="32dp"
-                android:background="#fff"
                 android:paddingHorizontal="32dp"
                 android:paddingVertical="16dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="8dp"
-                app:contentPaddingBottom="16dp"
-                app:contentPaddingLeft="32dp"
-                app:contentPaddingRight="32dp"
-                app:contentPaddingTop="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent">
@@ -84,28 +78,22 @@
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="8dp"
                         android:text="NO"
-                        app:layout_constraintEnd_toStartOf="@+id/buttonsGuideline"
+                        app:layout_constraintEnd_toStartOf="@+id/legalBtn"
                         app:layout_constraintStart_toStartOf="@+id/legalAgeTitleTv"
                         app:layout_constraintTop_toBottomOf="@id/legalAgeTitleTv" />
 
                     <com.google.android.material.button.MaterialButton
-                        style="@style/Theme.FreshPic.PrimaryButton"
                         android:id="@+id/legalBtn"
+                        style="@style/Theme.FreshPic.PrimaryButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
                         android:text="YES"
                         app:layout_constraintEnd_toEndOf="@+id/legalAgeTitleTv"
-                        app:layout_constraintStart_toEndOf="@id/buttonsGuideline"
+                        app:layout_constraintStart_toEndOf="@id/notLegalBtn"
                         app:layout_constraintTop_toBottomOf="@id/legalAgeTitleTv" />
 
-                    <androidx.constraintlayout.widget.Guideline
-                        android:id="@+id/buttonsGuideline"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        app:layout_constraintGuide_percent="0.5" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

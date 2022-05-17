@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.juanvilla.freshpic.domain.entity.Gif
 import com.juanvilla.freshpic.domain.usecase.search.SearchUseCase
 import com.juanvilla.freshpic.domain.util.ResultType
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,6 +27,7 @@ class SearchViewModel @Inject constructor(
     val searchViewStateSource: LiveData<SearchViewState> = _searchViewStateSource
 
     var currentOffset = 0
+    private val items: MutableList<Gif> = mutableListOf()
     private var lastKeyWord = ""
 
     fun findGifsByKeyword(keyword: String, rating: String) {

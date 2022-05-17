@@ -5,6 +5,7 @@ import androidx.lifecycle.Transformations
 import com.juanvilla.freshpic.data.source.local.dao.FavoritesDao
 import com.juanvilla.freshpic.data.source.local.entities.DbGif
 import com.juanvilla.freshpic.domain.exception.BaseException
+import com.juanvilla.freshpic.domain.exception.DatabaseException
 import com.juanvilla.freshpic.domain.util.ResultType
 import javax.inject.Inject
 
@@ -15,7 +16,7 @@ class FavoritesLocalDataSourceImpl @Inject constructor(
         val result = favoritesDao.save(gif)
         return when {
             result >= 0 -> ResultType.Success(Unit)
-            else -> ResultType.Error(BaseException("Can't save"))
+            else -> ResultType.Error(DatabaseException("Can't save gif: $gif"))
         }
     }
 
@@ -23,7 +24,7 @@ class FavoritesLocalDataSourceImpl @Inject constructor(
         val result = favoritesDao.delete(gif.id)
         return when {
             result > 0 -> ResultType.Success(Unit)
-            else -> ResultType.Error(BaseException("Can't save"))
+            else -> ResultType.Error(DatabaseException("Couldn't delete gif: $gif"))
         }
     }
 

@@ -39,7 +39,6 @@ object ApiGifMapper : ApiMapper<Gif, ApiGif>() {
         importDateTime = api.importDateTime,
         trendingDateTime = api.trendingDateTime,
         title = api.title,
-        user = null,
         image = Image(
             height = api.images!!.original.height,
             width = api.images.original.width,

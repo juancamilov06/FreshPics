@@ -21,6 +21,8 @@ import com.juanvilla.freshpic.ui.screens.home.HomeActivity
 import com.juanvilla.freshpic.ui.screens.shared.GifAdapter
 import com.juanvilla.freshpic.ui.screens.shared.SharedFavoriteViewState
 import com.juanvilla.freshpic.ui.screens.shared.SharedFavoritesViewModel
+import com.juanvilla.freshpic.ui.screens.trending.TrendingFragment
+import com.juanvilla.freshpic.ui.utils.eventObserve
 import com.juanvilla.freshpic.ui.utils.onTextChangedListenerDebounced
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -66,10 +68,15 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(TrendingFragment.MADE_CONFIG_CHANGE_FIELD, true)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setViews()
-        sharedFavoritesViewModel.gifFavoriteStatusSource.observe(viewLifecycleOwner) {
+        sharedFavoritesViewModel.gifFavoriteStatusSource.eventObserve(viewLifecycleOwner) {
             when (it) {
                 is SharedFavoriteViewState.GifFavoriteStatusChanged -> {
                     adapter.updateFavorite(it.gifId)
@@ -126,6 +133,8 @@ class SearchFragment : Fragment() {
 
     companion object {
         const val TAG = "SearchFragment"
+        const val MADE_CONFIG_CHANGE_FIELD = "MADE_CONFIG_CHANGE"
+
         fun getInstance(
             selectedRating: String
         ): SearchFragment {

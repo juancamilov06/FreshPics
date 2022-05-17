@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.android.material.snackbar.Snackbar
 import com.juanvilla.freshpic.domain.util.ResultType
 import com.juanvilla.freshpic.ui.databinding.FragmentFavoritesBinding
 import com.juanvilla.freshpic.ui.screens.shared.GifAdapter
@@ -47,8 +48,9 @@ class FavoritesFragment : Fragment() {
             when (it) {
                 is ResultType.Success -> {
                     binding.apply {
-                        favoritesRecyclerView.isVisible = true
+                        favoritesRecyclerView.isVisible = it.data.isNotEmpty()
                         favoritesProgressBar.isVisible = false
+                        favoritesTextView.isVisible = it.data.isEmpty()
                     }
                     adapter.setFavoriteItems(it.data)
                 }

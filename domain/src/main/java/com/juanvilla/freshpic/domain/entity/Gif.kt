@@ -1,5 +1,9 @@
 package com.juanvilla.freshpic.domain.entity
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Gif(
     val type: String,
     val id: String,
@@ -17,6 +21,5 @@ data class Gif(
     val trendingDateTime: String?,
     val title: String,
     val isFavorite: Boolean,
-    val user: User?,
     val image: Image
-)
+): Parcelable

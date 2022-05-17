@@ -63,4 +63,14 @@
         <item name="backgroundTint">@color/colorBaseBackground</item>
         <item name="iconTint">@color/colorPrimary</item>
     </style>
+
+    <style name="Theme.FreshPic.CardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">8dp</item>
+        <item name="contentPaddingBottom">16dp</item>
+        <item name="contentPaddingLeft">32dp</item>
+        <item name="contentPaddingRight">32dp</item>
+        <item name="contentPaddingTop">16dp</item>
+        <item name="cardBackgroundColor">@color/colorLayoutBackground</item>
+    </style>
 </resources>

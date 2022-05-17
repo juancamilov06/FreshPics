@@ -1,6 +1,8 @@
 package com.juanvilla.freshpic.data.utils
 
 import com.juanvilla.freshpic.domain.exception.BaseException
+import com.juanvilla.freshpic.domain.exception.InternalException
+import com.juanvilla.freshpic.domain.exception.NotFoundException
 import com.juanvilla.freshpic.domain.util.ResultType
 import retrofit2.Response
 
@@ -11,17 +13,14 @@ suspend fun <T> safeNetworkCall(
     if (response.isSuccessful && response.body() != null) {
         ResultType.Success(response.body()!!)
     } else {
-        //TODO: Create handle error response
-        ResultType.Error(BaseException(""))
+        handleErrorResponse(response)
     }
 } catch (error: Throwable) {
     ResultType.Error(BaseException(""))
 }
 
-suspend fun <T> safeDbQuery(
-    call: suspend () -> T
-): ResultType<T> = try {
-    ResultType.Success(call())
-} catch (error: Throwable) {
-    ResultType.Error(BaseException("Error doing query"))
+private fun <T> handleErrorResponse(response: Response<T>) = when (response.code()) {
+    404 -> ResultType.Error(NotFoundException(message = "Not found"))
+    500 -> ResultType.Error(InternalException(message = "Internal error"))
+    else -> ResultType.Error(BaseException("Unknown Exception"))
 }

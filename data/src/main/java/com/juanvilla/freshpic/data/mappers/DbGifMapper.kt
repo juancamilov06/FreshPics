@@ -42,7 +42,6 @@ object DbGifMapper : DbMapper<Gif, DbGif>() {
         importDateTime = db.importDateTime,
         trendingDateTime = db.trendingDateTime,
         title = db.title,
-        user = null,
         isFavorite = db.isFavorite,
         image = Image(
             height = db.height,

@@ -161,7 +161,6 @@ class SharedFavoritesViewModelTest {
         importDateTime = "importDateTime",
         trendingDateTime = "trendingDateTime",
         title = "title",
-        user = null,
         image = Image(
             height = 100,
             width = 100,

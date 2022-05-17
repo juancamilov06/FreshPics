@@ -165,7 +165,6 @@ class FavoritesRepositoryTest {
             width = 100,
             url = "images.original.url"
         ),
-        user = null,
         isFavorite = true
     )
 

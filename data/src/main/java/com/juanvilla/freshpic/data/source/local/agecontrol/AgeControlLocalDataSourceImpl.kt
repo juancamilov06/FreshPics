@@ -3,6 +3,7 @@ package com.juanvilla.freshpic.data.source.local.agecontrol
 import androidx.datastore.core.DataStore
 import com.juanvilla.freshpic.data.source.local.entities.ProtoAgeControlPreferences
 import com.juanvilla.freshpic.domain.exception.BaseException
+import com.juanvilla.freshpic.domain.exception.PreferencesException
 import com.juanvilla.freshpic.domain.util.ResultType
 import javax.inject.Inject
 import kotlinx.coroutines.flow.first
@@ -21,7 +22,7 @@ class AgeControlLocalDataSourceImpl @Inject constructor(
             ResultType.Success(Unit)
         } catch (error: Throwable) {
             ResultType.Error(
-                error = BaseException("")
+                error = PreferencesException("Error saving prefs $ageControlPreferences, default prefs will be applied")
             )
         }
     }
