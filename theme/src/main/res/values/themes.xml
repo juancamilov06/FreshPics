@@ -59,9 +59,15 @@
         <item name="backgroundTint">@color/colorSecondary</item>
     </style>
 
-    <style name="Theme.FreshPic.FavoriteButton">
+    <style name="Theme.FreshPic.IconButton">
         <item name="backgroundTint">@color/colorBaseBackground</item>
         <item name="iconTint">@color/colorPrimary</item>
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
     </style>
 
     <style name="Theme.FreshPic.CardView" parent="Widget.MaterialComponents.CardView">

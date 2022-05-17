@@ -22,7 +22,6 @@ import com.juanvilla.freshpic.ui.screens.shared.GifAdapter
 import com.juanvilla.freshpic.ui.screens.shared.SharedFavoriteViewState
 import com.juanvilla.freshpic.ui.screens.shared.SharedFavoritesViewModel
 import com.juanvilla.freshpic.ui.screens.trending.TrendingFragment
-import com.juanvilla.freshpic.ui.utils.eventObserve
 import com.juanvilla.freshpic.ui.utils.onTextChangedListenerDebounced
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -52,19 +51,23 @@ class SearchFragment : Fragment() {
             arguments?.getString(HomeActivity.PARAM_SELECTED_RATING) ?: Constants.PG13_RATING
         adapter = GifAdapter(
             requireContext(),
-            {
+            onLoadMore = {
                 searchViewModel.findGifsByKeyword(
                     toolbarSearchEditText.text.toString(),
                     selectedRating
                 )
+            },
+            onFavoriteClicked = { gif ->
+                if (gif.isFavorite) {
+                    sharedFavoritesViewModel.deleteGifFromFavorites(gif)
+                } else {
+                    sharedFavoritesViewModel.saveGifInFavorites(gif)
+                }
+            },
+            onItemClicked = {
+
             }
-        ) { gif ->
-            if (gif.isFavorite) {
-                sharedFavoritesViewModel.deleteGifFromFavorites(gif)
-            } else {
-                sharedFavoritesViewModel.saveGifInFavorites(gif)
-            }
-        }
+        )
         return binding.root
     }
 

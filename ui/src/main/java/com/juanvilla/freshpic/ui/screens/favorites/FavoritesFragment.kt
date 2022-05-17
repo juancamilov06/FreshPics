@@ -35,9 +35,16 @@ class FavoritesFragment : Fragment() {
             container,
             false
         )
-        adapter = GifAdapter(requireContext(), null) { gif ->
-            sharedFavoritesViewModel.deleteGifFromFavorites(gif)
-        }
+        adapter = GifAdapter(
+            requireContext(),
+            onLoadMore = null,
+            onFavoriteClicked = { gif ->
+                sharedFavoritesViewModel.deleteGifFromFavorites(gif)
+            },
+            onItemClicked = {
+
+            }
+        )
         return binding.root
     }
 

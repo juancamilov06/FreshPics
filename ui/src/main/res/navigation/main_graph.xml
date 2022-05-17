@@ -20,9 +20,6 @@
     <activity
         android:id="@+id/homeActivity"
         android:name="com.juanvilla.freshpic.ui.screens.home.HomeActivity"
-        tools:layout="@layout/activity_home">
-
-
-    </activity>
+        tools:layout="@layout/activity_home" />
 
 </navigation>

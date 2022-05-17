@@ -1,7 +1,6 @@
 package com.juanvilla.freshpic.ui.screens.trending
 
 import android.os.Bundle
-import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,16 +9,17 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.juanvilla.freshpic.domain.entity.Gif
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.juanvilla.freshpic.domain.util.Constants
+import com.juanvilla.freshpic.ui.R
 import com.juanvilla.freshpic.ui.databinding.FragmentTrendingBinding
 import com.juanvilla.freshpic.ui.screens.home.HomeActivity
 import com.juanvilla.freshpic.ui.screens.shared.GifAdapter
 import com.juanvilla.freshpic.ui.screens.shared.SharedFavoriteViewState
 import com.juanvilla.freshpic.ui.screens.shared.SharedFavoritesViewModel
-import com.juanvilla.freshpic.ui.utils.eventObserve
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -28,8 +28,6 @@ class TrendingFragment : Fragment() {
 
     private val trendingViewModel: TrendingViewModel by viewModels()
     private val sharedFavoritesViewModel: SharedFavoritesViewModel by activityViewModels()
-
-    private var currentOffset = 0
 
     private lateinit var adapter: GifAdapter
     private lateinit var binding: FragmentTrendingBinding
@@ -45,18 +43,23 @@ class TrendingFragment : Fragment() {
             container,
             false
         )
+
         selectedRating =
             arguments?.getString(HomeActivity.PARAM_SELECTED_RATING) ?: Constants.PG13_RATING
+
         adapter = GifAdapter(
             requireContext(),
-            { trendingViewModel.getTrendingGifs(selectedRating) }
-        ) { gif ->
-            if (gif.isFavorite) {
-                sharedFavoritesViewModel.deleteGifFromFavorites(gif)
-            } else {
-                sharedFavoritesViewModel.saveGifInFavorites(gif)
+            onLoadMore = { trendingViewModel.getTrendingGifs(selectedRating) },
+            onFavoriteClicked = { gif ->
+                if (gif.isFavorite) {
+                    sharedFavoritesViewModel.deleteGifFromFavorites(gif)
+                } else {
+                    sharedFavoritesViewModel.saveGifInFavorites(gif)
+                }
+            },
+            onItemClicked = {
             }
-        }
+        )
         return binding.root
     }
 

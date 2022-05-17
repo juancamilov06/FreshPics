@@ -18,7 +18,8 @@ import kotlin.random.Random
 class GifAdapter(
     private val context: Context,
     private val onLoadMore: (() -> Unit)?,
-    private val onFavoriteClicked: (Gif) -> Unit
+    private val onFavoriteClicked: (Gif) -> Unit,
+    private val onItemClicked: (Gif) -> Unit
 ) : RecyclerView.Adapter<GifAdapter.TrendingViewHolder>() {
 
     private val items = mutableListOf<Gif>()
@@ -82,8 +83,7 @@ class GifAdapter(
             onLoadMore?.let { it() }
         }
         holder.setGif(
-            items[position],
-            position
+            items[position]
         )
     }
 
@@ -92,8 +92,13 @@ class GifAdapter(
     inner class TrendingViewHolder(
         private val binding: ItemGifBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun setGif(gif: Gif, position: Int) {
+        fun setGif(gif: Gif) {
             binding.apply {
+
+                gifImageView.setOnClickListener {
+                    onItemClicked(gif)
+                }
+
                 setFavoriteButton.setOnClickListener {
                     onFavoriteClicked(gif)
                 }

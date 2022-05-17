@@ -64,7 +64,7 @@ class SearchViewModelTest {
 
         val sourceResult = viewModel.searchViewStateSource.value
         Assert.assertTrue(
-            sourceResult is SearchViewState.Success && sourceResult.data.gifs == result.gifs
+            sourceResult is SearchViewState.Success && sourceResult.data == result.gifs
         )
     }
 

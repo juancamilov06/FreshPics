@@ -5,7 +5,6 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.juanvilla.freshpic.domain.entity.Gif
-import com.juanvilla.freshpic.domain.usecase.favorite.FavoriteUseCase
 import com.juanvilla.freshpic.domain.usecase.trending.TrendingUseCase
 import com.juanvilla.freshpic.domain.util.ResultType
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,7 +16,6 @@ import kotlinx.coroutines.launch
 @HiltViewModel
 class TrendingViewModel @Inject constructor(
     private val trendingUseCase: TrendingUseCase,
-    private val favoriteUseCase: FavoriteUseCase,
     @Named("IoDispatcher") private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
