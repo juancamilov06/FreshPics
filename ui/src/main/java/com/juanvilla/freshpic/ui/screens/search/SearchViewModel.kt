@@ -30,14 +30,28 @@ class SearchViewModel @Inject constructor(
     private val items: MutableList<Gif> = mutableListOf()
     private var lastKeyWord = ""
 
+    fun updateFavorite(id: String, isFavorite: Boolean) {
+        val indexToUpdate = items.indexOfFirst {
+            id == it.id
+        }
+        if (indexToUpdate >= 0 && indexToUpdate <= items.size -1) {
+            val itemToUpdate = items[indexToUpdate]
+            items[indexToUpdate] = itemToUpdate.copy(
+                isFavorite = isFavorite
+            )
+        }
+    }
+
     fun findGifsByKeyword(keyword: String, rating: String) {
         if (keyword.isBlank()) {
             _searchViewStateSource.postValue(SearchViewState.Empty)
+            currentOffset = 0
             return
         }
 
         if (keyword != lastKeyWord) {
             currentOffset = 0
+            items.clear()
             _searchViewStateSource.postValue(SearchViewState.Loading)
         } else {
             _searchViewStateSource.postValue(SearchViewState.LoadingMore)
@@ -55,12 +69,11 @@ class SearchViewModel @Inject constructor(
 
             when (result) {
                 is ResultType.Success -> {
+                    items.addAll(result.data.gifs)
                     _searchViewStateSource.postValue(
-                        SearchViewState.Success(result.data)
+                        SearchViewState.Success(items)
                     )
-                    withContext(mainDispatcher) {
-                        currentOffset += 26
-                    }
+                    currentOffset += 26
                 }
                 is ResultType.Error -> _searchViewStateSource.postValue(
                     SearchViewState.Error(result.error)

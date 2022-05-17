@@ -76,9 +76,10 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setViews()
-        sharedFavoritesViewModel.gifFavoriteStatusSource.eventObserve(viewLifecycleOwner) {
+        sharedFavoritesViewModel.gifFavoriteStatusSource.observe(viewLifecycleOwner) {
             when (it) {
                 is SharedFavoriteViewState.GifFavoriteStatusChanged -> {
+                    searchViewModel.updateFavorite(it.gifId, it.isFavorite)
                     adapter.updateFavorite(it.gifId)
                 }
             }
@@ -99,6 +100,9 @@ class SearchFragment : Fragment() {
                     searchRecyclerView.isVisible = false
                     hintTextView.isVisible = true
                     loadingMoreSearchProgressBar.isVisible = false
+
+                    adapter.clear()
+                    adapter.notifyDataSetChanged()
                 }
 
                 is SearchViewState.Success -> binding.apply {
@@ -108,10 +112,8 @@ class SearchFragment : Fragment() {
                     loadingMoreSearchProgressBar.isVisible = false
 
                     adapter.apply {
-                        if (searchViewModel.currentOffset == 0) {
-                            clear()
-                        }
-                        setItems(it.data.gifs)
+                        clear()
+                        setItems(it.data)
                     }
                 }
                 is SearchViewState.Error -> Log.d(TAG, it.error.message!!)

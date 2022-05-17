@@ -68,10 +68,10 @@ class TrendingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setViews()
-        sharedFavoritesViewModel.gifFavoriteStatusSource.eventObserve(viewLifecycleOwner) {
+        sharedFavoritesViewModel.gifFavoriteStatusSource.observe(viewLifecycleOwner) {
             when (it) {
                 is SharedFavoriteViewState.GifFavoriteStatusChanged -> {
-                    trendingViewModel.updateFavorite(it.gifId)
+                    trendingViewModel.updateFavorite(it.gifId, it.isFavorite)
                     adapter.updateFavorite(it.gifId)
                 }
             }

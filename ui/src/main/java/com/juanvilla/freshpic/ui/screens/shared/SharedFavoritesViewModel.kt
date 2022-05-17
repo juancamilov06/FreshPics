@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.juanvilla.freshpic.domain.entity.Gif
 import com.juanvilla.freshpic.domain.usecase.favorite.FavoriteUseCase
 import com.juanvilla.freshpic.domain.util.ResultType
-import com.juanvilla.freshpic.ui.utils.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import javax.inject.Named
@@ -20,21 +19,21 @@ class SharedFavoritesViewModel @Inject constructor(
     @Named("IoDispatcher") private val ioDispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
-    private val _gifFavoriteStatusSource = MediatorLiveData<Event<SharedFavoriteViewState>>()
-    val gifFavoriteStatusSource: LiveData<Event<SharedFavoriteViewState>> = _gifFavoriteStatusSource
+    private val _gifFavoriteStatusSource = MediatorLiveData<SharedFavoriteViewState>()
+    val gifFavoriteStatusSource: LiveData<SharedFavoriteViewState> = _gifFavoriteStatusSource
 
     fun deleteGifFromFavorites(gif: Gif) {
         viewModelScope.launch(ioDispatcher) {
-            _gifFavoriteStatusSource.postValue(Event(SharedFavoriteViewState.UpdateGif))
+            _gifFavoriteStatusSource.postValue(SharedFavoriteViewState.UpdateGif)
             when (favoriteUseCase.deleteGifFromFavorites(gif)) {
                 is ResultType.Success -> {
                     _gifFavoriteStatusSource.postValue(
-                        Event(SharedFavoriteViewState.GifFavoriteStatusChanged(gif.id))
+                        SharedFavoriteViewState.GifFavoriteStatusChanged(gif.id, false)
                     )
                 }
                 is ResultType.Error -> {
                     _gifFavoriteStatusSource.postValue(
-                        Event(SharedFavoriteViewState.GifFavoriteStatusChangedError)
+                        SharedFavoriteViewState.GifFavoriteStatusChangedError
                     )
                 }
             }
@@ -43,16 +42,16 @@ class SharedFavoritesViewModel @Inject constructor(
 
     fun saveGifInFavorites(gif: Gif) {
         viewModelScope.launch(ioDispatcher) {
-            _gifFavoriteStatusSource.postValue(Event(SharedFavoriteViewState.UpdateGif))
+            _gifFavoriteStatusSource.postValue(SharedFavoriteViewState.UpdateGif)
             when (favoriteUseCase.saveGifToFavorites(gif)) {
                 is ResultType.Success -> {
                     _gifFavoriteStatusSource.postValue(
-                        Event(SharedFavoriteViewState.GifFavoriteStatusChanged(gif.id))
+                        SharedFavoriteViewState.GifFavoriteStatusChanged(gif.id, true)
                     )
                 }
                 is ResultType.Error -> {
                     _gifFavoriteStatusSource.postValue(
-                        Event(SharedFavoriteViewState.GifFavoriteStatusChangedError)
+                        SharedFavoriteViewState.GifFavoriteStatusChangedError
                     )
                 }
             }

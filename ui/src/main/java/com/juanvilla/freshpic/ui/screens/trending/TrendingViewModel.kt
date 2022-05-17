@@ -27,14 +27,16 @@ class TrendingViewModel @Inject constructor(
     private var currentPage = 0
     private val items: MutableList<Gif> = mutableListOf()
 
-    fun updateFavorite(id: String) {
+    fun updateFavorite(id: String, isFavorite: Boolean) {
         val indexToUpdate = items.indexOfFirst {
             id == it.id
         }
-        val itemToUpdate = items[indexToUpdate]
-        items[indexToUpdate] = itemToUpdate.copy(
-            isFavorite = !itemToUpdate.isFavorite
-        )
+        if (indexToUpdate >= 0 && indexToUpdate <= items.size -1) {
+            val itemToUpdate = items[indexToUpdate]
+            items[indexToUpdate] = itemToUpdate.copy(
+                isFavorite = isFavorite
+            )
+        }
     }
 
     fun getTrendingGifs(rating: String) {
