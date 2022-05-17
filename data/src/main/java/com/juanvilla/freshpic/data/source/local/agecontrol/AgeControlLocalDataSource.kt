@@ -4,6 +4,6 @@ import com.juanvilla.freshpic.data.source.local.entities.ProtoAgeControlPreferen
 import com.juanvilla.freshpic.domain.util.ResultType
 
 interface AgeControlLocalDataSource {
-    suspend fun save(ageControlPreferences: ProtoAgeControlPreferences): ResultType<Boolean>
+    suspend fun save(ageControlPreferences: ProtoAgeControlPreferences): ResultType<Unit>
     suspend fun find(): ResultType<ProtoAgeControlPreferences>
 }

@@ -3,7 +3,6 @@ package com.juanvilla.freshpic.ui.utils
 import android.widget.EditText
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.LifecycleCoroutineScope
-import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

@@ -6,6 +6,7 @@ import com.juanvilla.freshpic.domain.util.ResultType
 interface AgeControlRepository {
     suspend fun save(
         ageControlPreferences: AgeControlPreferences
-    ): ResultType<Boolean>
+    ): ResultType<Unit>
+
     suspend fun find(): ResultType<AgeControlPreferences>
 }

@@ -21,7 +21,6 @@ import com.juanvilla.freshpic.ui.screens.home.HomeActivity
 import com.juanvilla.freshpic.ui.screens.shared.GifAdapter
 import com.juanvilla.freshpic.ui.screens.shared.SharedFavoriteViewState
 import com.juanvilla.freshpic.ui.screens.shared.SharedFavoritesViewModel
-import com.juanvilla.freshpic.ui.screens.trending.TrendingFragment
 import com.juanvilla.freshpic.ui.utils.onTextChangedListenerDebounced
 import dagger.hilt.android.AndroidEntryPoint
 

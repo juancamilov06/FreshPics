@@ -12,7 +12,7 @@ class AgeControlRepositoryImpl @Inject constructor(
     private val protoAgeMapper: ProtoAgeMapper
 ) : AgeControlRepository {
 
-    override suspend fun save(ageControlPreferences: AgeControlPreferences): ResultType<Boolean> {
+    override suspend fun save(ageControlPreferences: AgeControlPreferences): ResultType<Unit> {
         val mappedAgePreferences = protoAgeMapper.mapDomainToDb(ageControlPreferences)
         return ageControlLocalDataSource.save(mappedAgePreferences)
     }

@@ -1,7 +1,6 @@
 package com.juanvilla.freshpic.ui.screens.trending
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,7 +38,8 @@ class TrendingFragment : Fragment() {
             container,
             false
         )
-        selectedRating = arguments?.getString(HomeActivity.PARAM_SELECTED_RATING) ?: Constants.PG13_RATING
+        selectedRating =
+            arguments?.getString(HomeActivity.PARAM_SELECTED_RATING) ?: Constants.PG13_RATING
         adapter = GifAdapter(
             requireContext(),
             { trendingViewModel.getTrendingGifs(selectedRating) }

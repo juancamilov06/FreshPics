@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.juanvilla.freshpic.domain.entity.Gif
-import com.juanvilla.freshpic.theme.R.*
+import com.juanvilla.freshpic.theme.R.color
 import com.juanvilla.freshpic.ui.R
 import com.juanvilla.freshpic.ui.databinding.ItemGifBinding
 import kotlin.random.Random

@@ -8,7 +8,6 @@ import androidx.room.Room
 import com.juanvilla.freshpic.data.source.local.GifDatabase
 import com.juanvilla.freshpic.data.source.local.agecontrol.AgeControlSerializer
 import com.juanvilla.freshpic.data.source.local.dao.FavoritesDao
-import com.juanvilla.freshpic.data.source.local.dao.UserDao
 import com.juanvilla.freshpic.data.source.local.entities.ProtoAgeControlPreferences
 import dagger.Module
 import dagger.Provides
@@ -44,12 +43,6 @@ class DatabaseModule {
             GifDatabase::class.java,
             "gif_database"
         ).build()
-
-    @Provides
-    @Singleton
-    fun provideUserDao(
-        gifDatabase: GifDatabase
-    ): UserDao = gifDatabase.getUserDao()
 
     @Provides
     @Singleton

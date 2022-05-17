@@ -12,7 +12,8 @@ class FavoriteUseCaseImpl @Inject constructor(
     override suspend fun saveGifToFavorites(gif: Gif): ResultType<Unit> =
         favoriteRepository.save(gif)
 
-    override suspend fun deleteGifFromFavorites(gif: Gif): ResultType<Unit> = favoriteRepository.delete(gif)
+    override suspend fun deleteGifFromFavorites(gif: Gif): ResultType<Unit> =
+        favoriteRepository.delete(gif)
 
     override fun getFavoriteGifs(): LiveData<ResultType<List<Gif>>> = favoriteRepository.findAll()
 }

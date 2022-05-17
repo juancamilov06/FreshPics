@@ -27,7 +27,7 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(ioDispatcher) {
             when (val result = ageControlUseCase.getUserAgeControlPreferences()) {
                 is ResultType.Success -> {
-                    _preferencesSource.postValue(result.data!!)
+                    _preferencesSource.postValue(result.data)
                 }
                 is ResultType.Error -> {
                     Log.d(TAG, "Error")

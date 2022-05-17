@@ -1,10 +1,9 @@
 package com.juanvilla.freshpic.ui.screens
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import com.juanvilla.freshpic.domain.entity.AgeControlPreferences
 import com.juanvilla.freshpic.ui.R

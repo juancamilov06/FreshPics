@@ -11,7 +11,11 @@ class TrendingRepositoryImpl @Inject constructor(
     private val trendingRemoteDataSource: TrendingRemoteDataSource,
     private val gifWrapperMapper: GifWrapperMapper
 ) : TrendingRepository {
-    override suspend fun getTrending(offset: Int, rating: String, limit: Int): ResultType<GifWrapper> {
+    override suspend fun getTrending(
+        offset: Int,
+        rating: String,
+        limit: Int
+    ): ResultType<GifWrapper> {
         val result = trendingRemoteDataSource.getTrendingGifs(
             offset,
             rating,

@@ -15,7 +15,6 @@ import com.juanvilla.freshpic.domain.repository.AgeControlRepository
 import com.juanvilla.freshpic.domain.repository.FavoriteRepository
 import com.juanvilla.freshpic.domain.repository.SearchRepository
 import com.juanvilla.freshpic.domain.repository.TrendingRepository
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

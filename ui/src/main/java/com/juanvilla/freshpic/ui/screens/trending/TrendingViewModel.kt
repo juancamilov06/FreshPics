@@ -4,10 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.juanvilla.freshpic.domain.entity.Gif
 import com.juanvilla.freshpic.domain.usecase.favorite.FavoriteUseCase
 import com.juanvilla.freshpic.domain.usecase.trending.TrendingUseCase
-import com.juanvilla.freshpic.domain.util.Constants
 import com.juanvilla.freshpic.domain.util.ResultType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -40,14 +38,16 @@ class TrendingViewModel @Inject constructor(
                 limit = 26
             )
             when (result) {
-                is ResultType.Success -> _trendingViewStateSource.postValue(
-                    TrendingViewState.Success(result.data)
-                )
+                is ResultType.Success -> {
+                    _trendingViewStateSource.postValue(
+                        TrendingViewState.Success(result.data)
+                    )
+                    currentPage += 26
+                }
                 is ResultType.Error -> _trendingViewStateSource.postValue(
                     TrendingViewState.Error(result.error)
                 )
             }
-            currentPage += 26
         }
     }
 

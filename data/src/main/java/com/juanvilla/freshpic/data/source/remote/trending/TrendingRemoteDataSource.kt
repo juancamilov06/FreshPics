@@ -1,7 +1,6 @@
 package com.juanvilla.freshpic.data.source.remote.trending
 
 import com.juanvilla.freshpic.data.source.remote.entities.ApiGifWrapper
-import com.juanvilla.freshpic.domain.entity.GifWrapper
 import com.juanvilla.freshpic.domain.util.ResultType
 
 interface TrendingRemoteDataSource {

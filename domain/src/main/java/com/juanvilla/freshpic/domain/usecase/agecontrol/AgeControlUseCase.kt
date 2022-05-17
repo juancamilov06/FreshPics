@@ -6,7 +6,7 @@ import com.juanvilla.freshpic.domain.util.ResultType
 interface AgeControlUseCase {
     suspend fun saveUserAgeControlPreferences(
         ageControlPreferences: AgeControlPreferences
-    ): ResultType<Boolean>
+    ): ResultType<Unit>
 
     suspend fun getUserAgeControlPreferences(): ResultType<AgeControlPreferences>
 }

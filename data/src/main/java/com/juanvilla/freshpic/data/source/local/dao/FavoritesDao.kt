@@ -2,11 +2,9 @@ package com.juanvilla.freshpic.data.source.local.dao
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
-import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.juanvilla.freshpic.data.source.local.entities.DbGif
-import com.juanvilla.freshpic.data.source.local.entities.DbUser
 
 @Dao
 interface FavoritesDao {

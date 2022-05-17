@@ -1,12 +1,12 @@
 package com.juanvilla.freshpic.ui.screens.shared
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.juanvilla.freshpic.domain.entity.Gif
 import com.juanvilla.freshpic.domain.usecase.favorite.FavoriteUseCase
 import com.juanvilla.freshpic.domain.util.ResultType
-import com.juanvilla.freshpic.ui.screens.search.SearchViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import javax.inject.Named
@@ -20,7 +20,7 @@ class SharedFavoritesViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _gifFavoriteStatusSource = MediatorLiveData<SharedFavoriteViewState>()
-    val gifFavoriteStatusSource = _gifFavoriteStatusSource
+    val gifFavoriteStatusSource: LiveData<SharedFavoriteViewState> = _gifFavoriteStatusSource
 
     fun deleteGifFromFavorites(gif: Gif) {
         viewModelScope.launch(ioDispatcher) {

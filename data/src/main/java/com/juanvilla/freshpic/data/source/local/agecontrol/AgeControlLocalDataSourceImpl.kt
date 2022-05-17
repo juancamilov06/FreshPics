@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.first
 class AgeControlLocalDataSourceImpl @Inject constructor(
     private val ageControlPreferencesDataStore: DataStore<ProtoAgeControlPreferences>
 ) : AgeControlLocalDataSource {
-    override suspend fun save(ageControlPreferences: ProtoAgeControlPreferences): ResultType<Boolean> {
+    override suspend fun save(ageControlPreferences: ProtoAgeControlPreferences): ResultType<Unit> {
         return try {
             ageControlPreferencesDataStore.updateData {
                 it.copy(
@@ -18,7 +18,7 @@ class AgeControlLocalDataSourceImpl @Inject constructor(
                     selectedRating = ageControlPreferences.selectedRating
                 )
             }
-            ResultType.Success(true)
+            ResultType.Success(Unit)
         } catch (error: Throwable) {
             ResultType.Error(
                 error = BaseException("")

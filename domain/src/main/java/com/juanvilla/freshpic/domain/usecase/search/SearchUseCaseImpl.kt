@@ -2,7 +2,6 @@ package com.juanvilla.freshpic.domain.usecase.search
 
 import com.juanvilla.freshpic.domain.entity.GifWrapper
 import com.juanvilla.freshpic.domain.repository.SearchRepository
-import com.juanvilla.freshpic.domain.usecase.search.SearchUseCase
 import com.juanvilla.freshpic.domain.util.ResultType
 import javax.inject.Inject
 

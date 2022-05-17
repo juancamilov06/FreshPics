@@ -4,12 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.juanvilla.freshpic.domain.entity.Gif
-import com.juanvilla.freshpic.domain.usecase.favorite.FavoriteUseCase
 import com.juanvilla.freshpic.domain.usecase.search.SearchUseCase
-import com.juanvilla.freshpic.domain.util.Constants
 import com.juanvilla.freshpic.domain.util.ResultType
-import com.juanvilla.freshpic.ui.screens.trending.TrendingViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import javax.inject.Named
@@ -20,7 +16,6 @@ import kotlinx.coroutines.withContext
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val searchUseCase: SearchUseCase,
-    private val favoriteUseCase: FavoriteUseCase,
     @Named("IoDispatcher") private val ioDispatcher: CoroutineDispatcher,
     @Named("MainDispatcher") private val mainDispatcher: CoroutineDispatcher
 ) : ViewModel() {
@@ -57,15 +52,17 @@ class SearchViewModel @Inject constructor(
             )
 
             when (result) {
-                is ResultType.Success -> _searchViewStateSource.postValue(
-                    SearchViewState.Success(result.data)
-                )
+                is ResultType.Success -> {
+                    _searchViewStateSource.postValue(
+                        SearchViewState.Success(result.data)
+                    )
+                    withContext(mainDispatcher) {
+                        currentOffset += 26
+                    }
+                }
                 is ResultType.Error -> _searchViewStateSource.postValue(
                     SearchViewState.Error(result.error)
                 )
-            }
-            withContext(mainDispatcher) {
-                currentOffset += 26
             }
         }
     }

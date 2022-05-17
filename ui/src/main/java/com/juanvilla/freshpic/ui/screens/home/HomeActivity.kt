@@ -9,7 +9,6 @@ import com.juanvilla.freshpic.ui.R
 import com.juanvilla.freshpic.ui.databinding.ActivityHomeBinding
 import com.juanvilla.freshpic.ui.screens.home.adapter.MainPagerAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import java.lang.IllegalStateException
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
